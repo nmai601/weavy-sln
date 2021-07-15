@@ -9,8 +9,12 @@
             <div class="progress-bar" role="progressbar"></div>
         </div>
         <div class="form-group">
+            <div class="emojionearea">
+                <div class="emojionearea-button" style="position:relative !important; right: 0 !important;" title="Insert emoji"><div class="emojionearea-button-open"></div><div class="emojionearea-button-close"></div></div>
+            </div>
             @Html.Filebrowser(true, ConfigurationService.BlobWhitelist, "messenger", htmlAttributes: new { data_dropzone = "main" })
-            @if (Model.TeamsEnabled && Model.ZoomEnabled) {
+            @if (Model.TeamsEnabled && Model.ZoomEnabled)
+            {
                 <div class="dropup">
                     <button type="button" class="btn btn-icon btn-meeting dropup" data-toggle="dropdown">@Svg.Icon("video")</button>
                     <div class="dropdown-menu">
@@ -18,14 +22,22 @@
                         <button type="button" class="dropdown-item btn-add-meeting" data-provider="zoom">@Svg.Icon("zoom", color: "native") @T["Zoom meeting"]</button>
                     </div>
                 </div>
-            } else if (Model.TeamsEnabled) {
+            }
+            else if (Model.TeamsEnabled)
+            {
                 <button type="button" class="btn btn-icon btn-add-meeting" data-provider="teams">@Svg.Icon("video")</button>
-            } else if (Model.ZoomEnabled) {
+            }
+            else if (Model.ZoomEnabled)
+            {
                 <button type="button" class="btn btn-icon btn-add-meeting" data-provider="zoom">@Svg.Icon("video")</button>
             }
 
             @Html.TextArea("text", string.Empty, new { placeholder = T["Type a message..."], rows = "1", @class = "form-control" })
-            <button type="submit" class="btn btn-icon btn-primary" title="@T["Send message"]">@Svg.Icon("send")</button>
+            <button type="submit" class="btn btn-icon btn-primary" title="@T["Send message"]">
+                <svg transform="rotate(45)" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 4L3 11L10 14M20 4L13 21L10 14M20 4L10 14" stroke="#0c4769" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
         </div>
     </fieldset>
 </form>

@@ -11,7 +11,7 @@
 }
 
 @foreach (var messagesGroupedByDate in Model.Messages.GroupBy(x => x.CreatedAt.ToLocal().Date)) {
-    <div class="date-separator"><time>@messagesGroupedByDate.Key.ToShortDateString()</time></div>
+    <div class="date-separator"><hr /><time>@messagesGroupedByDate.Key.ToString("MMM d, yyyy")</time><hr /></div>
     foreach (var message in messagesGroupedByDate) {
         if (readAt < message.CreatedAt) {
             <div class="new-separator">@T["New messages"]</div>

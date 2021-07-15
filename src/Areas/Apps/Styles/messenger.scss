@@ -67,401 +67,520 @@
 // custom modal
 @import "messenger_modal";
 
+
+.i {
+  color: #0c4769;
+}
 .scroll-y {
-    @include media-breakpoint-down(sm) {
-        &:not(.scroll-x) {
-            overflow-y: visible;
-            overflow-x: visible;
-        }
+  @include media-breakpoint-down(sm) {
+    &:not(.scroll-x) {
+      overflow-y: visible;
+      overflow-x: visible;
     }
+  }
+}
+
+.os-scrollbar-handle, .os-scrollbar-handle:hover {
+  background: #00629b !important;
 }
 
 .file-ctrl {
-    cursor: pointer;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    cursor: pointer;
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  cursor: pointer;
 }
 
 body.dual.os-host > .os-padding > .os-viewport > .os-content,
 body.dual.os-host > .os-padding > .os-viewport > .os-content-arrange {
-    @include media-breakpoint-up(md) {
-        display: flex;
-    }
+  @include media-breakpoint-up(md) {
+    display: flex;
+  }
 }
 
 html.os-html {
-    body.os-host > .os-scrollbar-vertical {
-        top: $navbar-height;
-    }
+  body.os-host > .os-scrollbar-vertical {
+    top: $navbar-height;
+  }
 
-    body.two.os-host > .os-scrollbar-vertical {
-        bottom: $navbar-height + .5rem;
-    }
-
+  body.two.os-host > .os-scrollbar-vertical {
+    bottom: $navbar-height + .5rem;
+  }
 }
 
 .turbolinks-progress-bar {
-    display: none;
+  display: none;
 }
 
 .pane {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .pane-header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    height: $navbar-height;
-    flex: 0 0 $navbar-height;
-    border-bottom: 1px solid $border-color;
-    padding: 0 $navbar-padding-x;
-    background: $body-bg;
-
-    position: sticky;
-    top: 0;
-    z-index: $zindex-sticky;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: $navbar-height;
+  flex: 0 0 $navbar-height;
+  border-bottom: 1px solid $border-color;
+  padding: 0 $navbar-padding-x;
+  background: $body-bg;
+  position: sticky;
+  top: 0;
+  z-index: $zindex-sticky;
+  color: #0c4769;
 }
 
 .pane-actions {
-    display: flex;
-    align-items: center;
-    width: 4rem; // makes room for 2 icons
-    &:last-child {
-        justify-content: flex-end;
-    }
+  display: flex;
+  align-items: center;
+  width: 4rem; // makes room for 2 icons
+  &:last-child {
+    justify-content: flex-end;
+  }
 
-    .badge {
-        border-radius: 50%;
-        min-width: 1.5rem;
-        max-width: 2rem;
-        font-size: $font-size-sm;
-        padding: .3125rem .25rem;
-    }
+  .badge {
+    border-radius: 50%;
+    min-width: 1.5rem;
+    max-width: 2rem;
+    font-size: $font-size-sm;
+    padding: .3125rem .25rem;
+  }
 }
 
 .pane-title {
-    @include text-truncate;
-    padding: 0 .5rem;
+  @include text-truncate;
+  padding: 0 .5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 
-    a {
-        @include text-truncate;
-        color: inherit;
-    }
+  a {
+    @include text-truncate;
+    color: inherit;
+  }
 }
 
 .pane-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.i-dots-vertical, .btn-icon {
+  color: #0c4769 !important;
+}
+
+.i-attachment {
+  transform: rotate( -45deg );
 }
 
 .alerts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 1rem;
-    width: 100%;
-    position: fixed;
-    top: 1.5rem;
-    z-index: 1051;
-    pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+  width: 100%;
+  position: fixed;
+  top: 1.5rem;
+  z-index: 1051;
+  pointer-events: none;
 }
 
+.messenger-btns {
+  display: flex;
+  justify-content: center;
+  margin: 10px 15px;
+  background-color: #f0f0f0;
+  border-radius: 50px;
+  height: 2rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    border: none;
+  }
+
+  :not(.active) {
+    background-color: #f0f0f0;
+    color: #0c4769;
+  }
+
+  .active {
+    background-color: #00629b !important;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    z-index: 1;
+  }
+
+  .btn:not(.active):focus, .btn.focus:not(.active) {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+.presence[data-active]:after {
+  background-color: #f97f47 !important;
+}
 // pane with conversation list
 #sidebar {
-    min-height: 100vh;
+  min-height: 100vh;
 }
-
 // pane with conversation and details
 #main {
-    .pane-body {
-        flex-direction: row;
-    }
+  .pane-body {
+    flex-direction: row;
+  }
 }
 // conversations list
 #conversations {
-
-    .conversation {
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-
-        &.active {
-            background-color: $list-group-bg;
-            border-color: $list-group-border-color;
-            color: $list-group-action-color;
-            z-index: unset;
-
-            .two & {
-                background-color: $list-group-hover-bg;
-            }
-
-            @include media-breakpoint-up(md) {
-                .dual.one & {
-                    background-color: $list-group-hover-bg;
-                }
-            }
-        }
-
-        &.unread {
-            .media-title, .media-text {
-                font-weight: $font-weight-bold;
-            }
-        }
-
-
-        &:not(.pinned) {
-            .dropdown-toggle {
-                > .i-pin {
-                    display: none;
-                }
-            }
-
-            .conversation-menu {
-                [data-action=pin] {
-                    display: block;
-                }
-            }
-        }
-
-        &.pinned {
-            .dropdown-toggle {
-
-                > .i-dots-vertical {
-                    display: none;
-                }
-
-                > .i-pin {
-                    display: inline-flex;
-                }
-            }
-
-            .conversation-menu {
-                [data-action=unpin] {
-                    display: block;
-                }
-            }
-        }
-
-        &:hover {
-            background-color: $list-group-hover-bg;
-        }
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    time {
-        color: $text-muted;
-        float: right;
-        font-size: $font-size-xs;
-        margin-top: .25rem;
-        margin-right: .5rem;
-    }
+  font-size: 0.9rem;
 }
+#conversations, #main, #new-message-modal {
+  .img-48 {
+    margin: 0 0.6rem !important;
+    font-size: 1.3rem;
+  }
 
+  .img-32 {
+    font-size: .95rem;
+  }
+
+  .img-18 {
+    font-size: 0.65rem;
+  }
+
+  .img-48, .img-32, .img-18 {
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: scale(0.8);
+    display: flex;
+    flex-wrap: wrap;
+
+
+    .group-icon {
+      background-color: #00629b;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .g1 {
+      width: 100%;
+      height: 100%;
+    }
+
+    .g2 {
+      width: 45%;
+      height: 45%;
+      font-size: calc(1.3rem / 2);
+      /*margin: .1rem;*/
+    }
+  }
+
+  .list-group-item {
+    padding: .15rem;
+  }
+
+  .media-body {
+    border-bottom-color: $list-group-border-color;
+  }
+
+  .conversation {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+
+    &.active {
+      background-color: $list-group-bg;
+      border: 0;
+      color: $list-group-action-color;
+      z-index: unset;
+
+      .two & {
+        background-color: $list-group-hover-bg;
+      }
+
+      @include media-breakpoint-up(md) {
+        .dual.one & {
+          background-color: $list-group-hover-bg;
+        }
+      }
+    }
+
+    &.unread {
+      .media-title, .media-text {
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .i {
+      transform: scale(0.7);
+    }
+
+    &:not(.pinned) {
+      .dropdown-toggle {
+        > .i-pin {
+          display: none;
+        }
+      }
+
+      .conversation-menu {
+        [data-action=pin] {
+          display: block;
+        }
+      }
+    }
+
+    &.pinned {
+      .dropdown-toggle {
+
+        > .i-dots-vertical {
+          display: none;
+        }
+
+        > .i-pin {
+          display: inline-flex;
+          transform: rotate(-45deg) scale(0.7);
+        }
+      }
+
+      .conversation-menu {
+        [data-action=unpin] {
+          display: block;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: $list-group-hover-bg;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .meta time {
+    float: left;
+  }
+
+  time {
+    /*color: $text-muted;*/
+    float: right;
+    /*font-size: $font-size-xs;*/
+    font-size: 0.7rem;
+    margin-top: .25rem;
+    margin-right: .5rem;
+  }
+}
 // conversation div with messages and form for posting message
 #conversation {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - #{$navbar-height});
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - #{$navbar-height});
 }
 
 #messages-scroll {
-    display: flex;
-    flex-direction: column;
-    margin-top: auto;
-    min-height: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  min-height: 1.5rem;
 }
-
 // div with messages
 #messages {
 
-    > .spinner {
-        position: absolute;
-        top: calc(50% - .75rem);
-        left: calc(50% - .75rem);
-        // hide spinner from the start
-        display: none;
-    }
+  > .spinner {
+    position: absolute;
+    top: calc(50% - .75rem);
+    left: calc(50% - .75rem);
+    // hide spinner from the start
+    display: none;
+  }
 
-    padding: $spacer 9% 0 9%;
-    padding-left: .75rem;
-    padding-right: .75rem;
-
-
-    @include media-breakpoint-up(sm) { // 576+
-    }
+  padding: $spacer 9% 0 9%;
+  padding-left: .75rem;
+  padding-right: .75rem;
 
 
-    @include media-breakpoint-up(md) { // 768+
-        padding-left: 5%;
-        padding-right: 5%;
-    }
+  @include media-breakpoint-up(sm) { // 576+
+  }
 
-    @include media-breakpoint-up(lg) { // 992+
-        padding-left: 7%;
-        padding-right: 7%;
-    }
 
-    @include media-breakpoint-up(xl) { // 1200+
-        padding-left: 9%;
-        padding-right: 9%;
-    }
+  @include media-breakpoint-up(md) { // 768+
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  @include media-breakpoint-up(lg) { // 992+
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+
+  @include media-breakpoint-up(xl) { // 1200+
+    padding-left: 9%;
+    padding-right: 9%;
+  }
 }
-
 // individual message
 .message {
-    display: flex;
-    margin-bottom: 1.5rem;
+  display: flex;
+  margin-bottom: 1.5rem;
 
-    .author {
-        margin: 1.375rem .5rem 0 0;
+  .author {
+    margin: 1.375rem .5rem 0 0;
 
-        .avatar {
-            width: 1.5rem;
-            height: 1.5rem;
+    .avatar {
+      width: 1.5rem;
+      height: 1.5rem;
 
-            @include media-breakpoint-up(md) {
-                width: 2rem;
-                height: 2rem;
-            }
-        }
+      @include media-breakpoint-up(md) {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    max-width: calc(100% - 2rem); // without this .image-grid could overflow
+  }
+
+  .meta {
+    /*font-size: $font-size-xs;*/
+    font-size: 0.65rem;
+    margin: 0 0 .25rem .5rem;
+    /*color: $text-muted;*/
+    color: #0c4769;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .bubble {
+    background-color: $gray-100;
+    border-radius: $border-radius;
+    display: inline-block;
+    padding: .5rem;
+    position: relative; // so that we can position .reactions
+    max-width: 100%;
+    border-radius: 20px 20px 20px 3px;
+
+    @media (min-width: 576px) and (max-width: 900px) {
+      max-width: 90%;
     }
 
-    .content {
-        width: 100%;
-        max-width: calc(100% - 2rem); // without this .image-grid could overflow
+    @media (min-width: 901px) and (max-width: 1024px) {
+      max-width: 85%;
     }
 
-    .meta {
-        font-size: $font-size-xs;
-        margin: 0 0 .25rem .5rem;
-        color: $text-muted;
-
-        a {
-            color: inherit;
-        }
+    @media (min-width: 1025px) and (max-width: 1300px) {
+      max-width: 75%;
     }
 
-    .bubble {
-        background-color: $gray-100;
-        border-radius: $border-radius;
-        display: inline-block;
-        padding: .5rem;
-        position: relative; // so that we can position .reactions
-        max-width: 100%;
-
-        @media (min-width: 576px) and (max-width: 900px) {
-            max-width: 90%;
-        }
-
-        @media (min-width: 901px) and (max-width: 1024px) {
-            max-width: 85%;
-        }
-
-        @media (min-width: 1025px) and (max-width: 1300px) {
-            max-width: 75%;
-        }
-
-        @media (min-width: 1301px) {
-            max-width: 65%;
-        }
-
-        &:hover {
-            .badge-reaction[data-toggle=reactions] {
-                display: inline-flex;
-            }
-        }
-
-        > div {
-            margin-bottom: .5rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
+    @media (min-width: 1301px) {
+      max-width: 65%;
     }
 
-    .card-images {
-        max-width: 100%;
-        background-color: inherit;
+    &:hover {
+      .badge-reaction[data-toggle=reactions] {
+        display: inline-flex;
+      }
     }
 
-    .card-files {
+    > div {
+      margin-bottom: .5rem;
 
-        .i {
-            margin-right: .25rem;
-        }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 
-        .media-body {
-            margin-right: .25rem;
-        }
+  .card-images {
+    max-width: 100%;
+    background-color: inherit;
+  }
 
-        .media-title {
-            margin-bottom: 0;
-        }
+  .card-files {
 
-        .list-group-item {
-            padding: .5rem;
-        }
-
-        .list-group-item-action {
-            &:hover, &:focus {
-                background: $list-group-bg;
-            }
-        }
+    .i {
+      margin-right: .25rem;
     }
 
-    .card-meetings {
-
-        .i {
-            margin-right: .5rem;
-            align-self: flex-start;
-        }
-
-        .media-body {
-            margin-right: .25rem;
-
-            button {
-                margin-top: 0.5rem;
-            }
-        }
-
-        .media-title {
-            margin-bottom: 0;
-            white-space: unset;
-        }
-
-        .list-group-item {
-            padding: .5rem;
-        }
-
-        .list-group-item-action {
-            &:hover, &:focus {
-                background: $list-group-bg;
-            }
-        }
+    .media-body {
+      margin-right: .25rem;
     }
 
-    .text {
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
+    .media-title {
+      margin-bottom: 0;
     }
-    /*
+
+    .list-group-item {
+      padding: .5rem;
+    }
+
+    .list-group-item-action {
+      &:hover, &:focus {
+        background: $list-group-bg;
+      }
+    }
+  }
+
+  .card-meetings {
+
+    .i {
+      margin-right: .5rem;
+      align-self: flex-start;
+    }
+
+    .media-body {
+      margin-right: .25rem;
+
+      button {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .media-title {
+      margin-bottom: 0;
+      white-space: unset;
+    }
+
+    .list-group-item {
+      padding: .5rem;
+    }
+
+    .list-group-item-action {
+      &:hover, &:focus {
+        background: $list-group-bg;
+      }
+    }
+  }
+
+  .text {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    color: #0c4769;
+  }
+  /*
     .reactions {
         position: absolute;
         right: .25rem;
@@ -510,744 +629,770 @@ html.os-html {
             }
         }
     }*/
+  &.me {
+    display: block;
+    padding-left: 3rem;
+
+    .meta {
+      margin: 0 .5rem .25rem 0;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      max-width: none;
+    }
+
+    .bubble {
+      background-color: $theme-200;
+      border-radius: 20px 20px 3px 20px;
+    }
+
+    .reactions {
+      max-width: none;
+    }
+  }
+
+  &.emoji {
+    .bubble {
+      background: none;
+      padding: 0 .5rem 0 0;
+    }
+
+    img.eo, img.emojione {
+      font-size: 2rem;
+      margin: 0 .25rem 0 0;
+    }
+
+    object.emojione {
+      width: 2.625rem; // 42px;
+      height: 2.625rem; // 42px;
+      margin: 0 .25rem 0 0;
+    }
+
     &.me {
-        display: block;
-        padding-left: 3rem;
-
-        .meta {
-            margin: 0 .5rem .25rem 0;
-        }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            max-width: none;
-        }
-
-        .bubble {
-            background-color: $theme-200;
-        }
-
-        .reactions {
-            max-width: none;
-        }
+      img.eo, img.emojione, object.emojione {
+        margin: 0 0 0 .25rem;
+      }
     }
+  }
 
-    &.emoji {
-        .bubble {
-            background: none;
-            padding: 0 .5rem 0 0;
-        }
-
-        img.eo, img.emojione {
-            font-size: 2rem;
-            margin: 0 .25rem 0 0;
-        }
-
-        object.emojione {
-            width: 2.625rem; // 42px;
-            height: 2.625rem; // 42px;
-            margin: 0 .25rem 0 0;
-        }
-
-        &.me {
-            img.eo, img.emojione, object.emojione {
-                margin: 0 0 0 .25rem;
-            }
-        }
+  &.sending {
+    .bubble {
+      opacity: .5;
     }
+  }
 
-    &.sending {
-        .bubble {
-            opacity: .5;
-        }
+  &.system {
+    justify-content: center;
+    margin-bottom: .25rem;
+
+    .bubble {
+      background-color: inherit;
+      color: $text-muted;
+      text-align: center;
+      padding: 0;
     }
-
-    &.system {
-        justify-content: center;
-        margin-bottom: .25rem;
-
-        .bubble {
-            background-color: inherit;
-            color: $text-muted;
-            text-align: center;
-            padding: 0;
-        }
-    }
+  }
 }
 // sending message and status indicator
 #sending {
-    display: none;
+  display: none;
 }
 // date separator
 .date-separator {
-    font-size: $font-size-sm;
-    line-height: 1;
-    text-align: center;
-    margin: 1.5rem 0;
-    position: sticky;
-    top: .5rem;
-    z-index: 2;
-    pointer-events: none;
+  font-weight: 600;
+  font-size: 0.7rem;
+  line-height: 1;
+  text-align: center;
+  margin: 1.5rem 0;
+  position: sticky;
+  top: .5rem;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
 
-    time {
-        background: $theme-100;
-        padding: .5rem .625rem;
-        border-radius: $border-radius;
-        display: inline-block;
-    }
+  hr {
+    width: 35%;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+  }
+
+  time {
+    /*background: $theme-100;*/
+    color: #0c4769;
+    padding: .5rem .625rem;
+    border-radius: $border-radius;
+    display: inline-block;
+  }
 }
 // new messages separator
 .new-separator {
-    font-size: $font-size-sm;
-    line-height: 1;
-    text-align: center;
-    background: $primary;
-    padding: .5rem 0;
-    border-radius: $border-radius;
-    color: color-yiq($primary);
-    width: 50%;
-    margin: 1.5rem auto;
-    position: sticky;
-    top: .5rem;
-    z-index: 3;
+  font-size: $font-size-sm;
+  line-height: 1;
+  text-align: center;
+  background: $primary;
+  padding: .5rem 0;
+  border-radius: $border-radius;
+  color: color-yiq($primary);
+  width: 50%;
+  margin: 1.5rem auto;
+  position: sticky;
+  top: .5rem;
+  z-index: 3;
 }
 // message status indicator (sending, sent, delivered, read)
 .status {
-    display: flex;
-    justify-content: flex-end;
-    color: $theme-200;
-    font-size: $font-size-xs;
-    margin-top: -.75rem;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  color: $theme-200;
+  font-size: $font-size-xs;
+  margin-top: -.75rem;
+  margin-bottom: 1rem;
 
-    > * {
-        margin-left: .25rem;
-    }
+  > * {
+    margin-left: .25rem;
+  }
 }
-
 // conversation menu
 .conversation-menu {
-    [data-action] {
-        display: none;
-    }
+  [data-action] {
+    display: none;
+  }
 
-    .conversation.starred &, #main.conversation.starred ~ .modal & {
-        [data-action=unstar] {
-            display: block;
-        }
+  .conversation.starred &, #main.conversation.starred ~ .modal & {
+    [data-action=unstar] {
+      display: block;
     }
+  }
 
-    .conversation:not(.starred) &, #main.conversation:not(.starred) ~ .modal & {
-        [data-action=star] {
-            display: block;
-        }
+  .conversation:not(.starred) &, #main.conversation:not(.starred) ~ .modal & {
+    [data-action=star] {
+      display: block;
     }
+  }
 
-    .conversation.unread &, #main.conversation.unread ~ .modal & {
-        [data-action=read] {
-            display: block;
-        }
+  .conversation.unread &, #main.conversation.unread ~ .modal & {
+    [data-action=read] {
+      display: block;
     }
+  }
 
-    .conversation:not(.unread) &, #main.conversation:not(.unread) ~ .modal & {
-        [data-action=unread] {
-            display: block;
-        }
+  .conversation:not(.unread) &, #main.conversation:not(.unread) ~ .modal & {
+    [data-action=unread] {
+      display: block;
     }
+  }
 
-    .conversation.room &, #main.conversation.room ~ .modal & {
-        [data-action=leave] {
-            display: block;
-        }
+  .conversation.room &, #main.conversation.room ~ .modal & {
+    [data-action=leave] {
+      display: block;
     }
+  }
 
 
-    #main.conversation.room &, #main.conversation.room ~ .modal & {
-        [data-action=add-people] {
-            display: block;
-        }
+  #main.conversation.room &, #main.conversation.room ~ .modal & {
+    [data-action=add-people] {
+      display: block;
     }
+  }
 }
 
 button.dropdown-item {
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }
 
 .btn-checkbox {
 
-    .i-checkbox-blank-outline {
-        display: inline-flex;
-    }
+  .i-checkbox-blank-outline {
+    display: inline-flex;
+  }
 
-    .i-checkbox-marked-outline {
+  .i-checkbox-marked-outline {
+    display: none;
+  }
+
+  [type=checkbox] {
+    visibility: hidden;
+    position: absolute;
+
+    &:checked {
+      ~ .i-checkbox-blank-outline {
         display: none;
+      }
+
+      ~ .i-checkbox-marked-outline {
+        display: inline-flex;
+      }
     }
-
-    [type=checkbox] {
-        visibility: hidden;
-        position: absolute;
-
-        &:checked {
-            ~ .i-checkbox-blank-outline {
-                display: none;
-            }
-
-            ~ .i-checkbox-marked-outline {
-                display: inline-flex;
-            }
-        }
-    }
+  }
 }
 // only show first .loader (infinite scroll)
 .loader ~ .loader {
-    display: none;
+  display: none;
 }
 // media
 .media {
-    align-items: center;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .media-actions {
-    position: absolute;
-    bottom: .5rem;
-    right: 0;
-    right: $navbar-padding-x;
-    display: flex;
+  position: absolute;
+  bottom: .5rem;
+  right: 0;
+  right: $navbar-padding-x;
+  display: flex;
+
+  button {
+    transform: translate(0, 8px);
+  }
 }
 
 .media-body {
-    line-height: 1.5;
-    // needed for text-truncate to work, see https://css-tricks.com/flexbox-truncated-text/
-    min-width: 0;
+  line-height: 1.5;
+  // needed for text-truncate to work, see https://css-tricks.com/flexbox-truncated-text/
+  min-width: 0;
+  color: #0c4769;
 }
 
 .media-title, .media-text {
-    @include text-truncate;
+  @include text-truncate;
 }
 
 .media-text {
-    // make room for dropdown and star
-    padding-right: 4.25rem;
+  // make room for dropdown and star
+  padding-right: 4.25rem;
+
+  .i-attachment {
+    color: #fba376;
+    transform: rotate(-45deg) scale(0.7) !important;
+  }
 }
 // typing indicators
 .typing-hide {
-    display: initial;
+  display: initial;
 
-    .typing & {
-        display: none !important;
-    }
+  .typing & {
+    display: none !important;
+  }
 }
 
 .typing-show {
-    color: $text-muted;
-    display: none;
-    font-weight: $font-weight-normal;
+  color: $text-muted;
+  display: none;
+  font-weight: $font-weight-normal;
 
-    .typing & {
-        display: initial !important;
-    }
+  .typing & {
+    display: initial !important;
+  }
 }
 // change some styles when loading
 body.loading {
 
-    #messages-scroll.os-host  {
-        margin-bottom: auto;
+  #messages-scroll.os-host {
+    margin-bottom: auto;
 
-        > .os-scrollbar {
-            display: none;
-        }
-
-        > .os-padding {
-            > .os-viewport {
-                overflow: visible;
-            
-                > .os-content {
-                    position: static;
-                }
-            }
-        }
+    > .os-scrollbar {
+      display: none;
     }
 
-    #messages {
-        > .spinner {
-            display: block;
-        }
+    > .os-padding {
+      > .os-viewport {
+        overflow: visible;
 
-        > :not(.spinner) {
-            display: none;
+        > .os-content {
+          position: static;
         }
+      }
     }
+  }
+
+  #messages {
+    > .spinner {
+      display: block;
+    }
+
+    > :not(.spinner) {
+      display: none;
+    }
+  }
 }
-
 // change some styles while sending
 body.sending {
-    // display #sending
-    #sending {
-        display: block;
-    }
-    // hide prev status indicators
-    .status-sent, .status-delivered {
-        display: none;
-    }
+  // display #sending
+  #sending {
+    display: block;
+  }
+  // hide prev status indicators
+  .status-sent, .status-delivered {
+    display: none;
+  }
 }
 // start with only one pane visible
 .one {
-    #main {
-        display: none;
-    }
+  #main {
+    display: none;
+  }
 }
 
 .two {
-    #sidebar {
-        display: none;
-    }
+  #sidebar {
+    display: none;
+  }
 }
-
 // responsive two pane layout
 body.dual {
 
+  .pane-actions {
+    .btn-avatar {
+      display: none;
+    }
+  }
+  // show both panes on medium sized devices (768px and up), also move scrollbar from body to the individual panes (even on mobile)
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    overflow: hidden;
+
+    .pane {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .pane-header {
+      position: static;
+      top: auto;
+      z-index: unset;
+    }
+
     .pane-actions {
-        .btn-avatar {
-            display: none;
-        }
-    }
-    // show both panes on medium sized devices (768px and up), also move scrollbar from body to the individual panes (even on mobile)
-    @include media-breakpoint-up(md) {
+      .btn-avatar {
         display: flex;
-        flex-wrap: wrap;
-        height: 100vh;
-        overflow: hidden;
+      }
 
-        .pane {
-            height: 100vh;
-            overflow: hidden;
-        }
+      .btn-back {
+        display: none;
+      }
 
-        .pane-header {
-            position: static;
-            top: auto;
-            z-index: unset;
-        }
-
-        .pane-actions {
-            .btn-avatar {
-                display: flex;
-            }
-
-            .btn-back {
-                display: none;
-            }
-
-            .badge {
-                display: none;
-            }
-        }
-
-        #conversation {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            height: 100%;
-        }
-
-        #messages {
-            min-height: 0;
-        }
-
-        .message-form {
-            position: static;
-        }
-
-        &.one, &.two {
-            #sidebar {
-                border-right: 1px solid $border-color;
-                display: flex;
-                flex: 0 0 40%;
-                max-width: 420px;
-            }
-
-            #main {
-                display: flex;
-                flex: 3;
-
-                .pane-body {
-                    height: 100%;
-                    overflow: hidden;
-                }
-            }
-        }
+      .badge {
+        display: none;
+      }
     }
+
+    #conversation {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+    }
+
+    #messages {
+      min-height: 0;
+    }
+
+    .message-form {
+      position: static;
+
+    }
+
+    &.one, &.two {
+      #sidebar {
+        border-right: 1px solid $border-color;
+        display: flex;
+        flex: 0 0 40%;
+        max-width: 420px;
+      }
+
+      #main {
+        display: flex;
+        flex: 3;
+
+        .pane-body {
+          height: 100%;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 }
 // tables
 .table {
-    margin: 0;
-    table-layout: fixed;
+  margin: 0;
+  table-layout: fixed;
 
+  th, td {
+    border: none;
+    padding: $table-cell-padding $table-cell-padding-sm;
+
+    &.table-icon {
+      // cell with icon or avatar
+      line-height: 0;
+      color: $icon-color;
+      text-align: center;
+      vertical-align: middle;
+      position: relative;
+      padding: 0 $table-cell-padding-sm;
+      width: 2rem + $table-cell-padding-sm * 2;
+
+      > :only-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+      }
+
+      &:last-child > :only-child {
+        margin-left: auto;
+        margin-right: 0;
+        justify-content: flex-end;
+      }
+    }
+
+    &:first-child {
+      padding-left: $navbar-padding-x;
+
+      &.table-icon {
+        width: $navbar-padding-x + 2rem + $table-cell-padding-sm;
+      }
+    }
+
+    &:last-child {
+      padding-right: $navbar-padding-x;
+
+      &.table-icon {
+        width: $table-cell-padding-sm + 2rem + $navbar-padding-x;
+      }
+    }
+
+    > .btn-icon, > svg.i {
+      margin-top: -$table-cell-padding;
+      margin-bottom: -($table-cell-padding - $table-cell-padding-sm);
+    }
+  }
+
+  thead {
     th, td {
-        border: none;
-        padding: $table-cell-padding $table-cell-padding-sm;
-
-        &.table-icon {
-            // cell with icon or avatar
-            line-height: 0;
-            color: $icon-color;
-            text-align: center;
-            vertical-align: middle;
-            position: relative;
-            padding: 0 $table-cell-padding-sm;
-            width: 2rem + $table-cell-padding-sm * 2;
-
-            > :only-child {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: auto;
-            }
-
-            &:last-child > :only-child {
-                margin-left: auto;
-                margin-right: 0;
-                justify-content: flex-end;
-            }
-        }
-
-        &:first-child {
-            padding-left: $navbar-padding-x;
-
-            &.table-icon {
-                width: $navbar-padding-x + 2rem + $table-cell-padding-sm;
-            }
-        }
-
-        &:last-child {
-            padding-right: $navbar-padding-x;
-
-            &.table-icon {
-                width: $table-cell-padding-sm + 2rem + $navbar-padding-x;
-            }
-        }
-
-        > .btn-icon, > svg.i {
-            margin-top: -$table-cell-padding;
-            margin-bottom: -($table-cell-padding - $table-cell-padding-sm);
-        }
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      border-top-color: transparent;
+      border-bottom: $table-border-width solid $table-border-color;
     }
-
-    thead {
-        th, td {
-            font-size: $font-size-xs;
-            text-transform: uppercase;
-            border-top-color: transparent;
-            border-bottom: $table-border-width solid $table-border-color;
-        }
-    }
+  }
 }
-
 // attached files and meetings in new message
 .table-uploads, .table-meetings {
-    tr:last-child td {
-        border-bottom: $border-width solid $border-color;
-    }
+  tr:last-child td {
+    border-bottom: $border-width solid $border-color;
+  }
 }
-
 // add people to conversation
 .table-people {
-    tr:not(.info) {
-        cursor: pointer;
-    }
+  tr:not(.info) {
+    cursor: pointer;
+  }
 }
-
 // forms
 .form-text {
-    color: $text-muted;
-    font-size: $font-size-sm;
+  color: $text-muted;
+  font-size: $font-size-sm;
 }
-
 // form for posting message
 .message-form {
-    position: sticky;
-    bottom: 0;
-    z-index: $zindex-sticky;
-    background: $white;
-    @extend .border-top;
+  position: sticky;
+  bottom: 0;
+  z-index: $zindex-sticky;
+  background: $white;
+  @extend .border-top;
 
-    textarea {
-        resize: none;
+  textarea {
+    resize: none;
+  }
+
+  .form-container {
+    padding: $navbar-padding-y $navbar-padding-x;
+    // relative so that we can position the file upload progress bar and emoji picker
+    position: relative;
+  }
+
+  .progress {
+    position: absolute;
+    top: -.25rem;
+    left: 0;
+    right: 0;
+    height: .25rem;
+    box-shadow: none;
+  }
+
+  .form-group {
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .form-control {
+    border: 0;
+    //border-radius: 0;
+    background-color: $gray-100;
+    box-shadow: none;
+    margin: 0 .75rem;
+    padding: .5rem .75rem;
+
+    &:disabled {
+      background-color: $input-bg;
     }
+  }
 
-    .form-container {
-        padding: $navbar-padding-y $navbar-padding-x;
-        // relative so that we can position the file upload progress bar and emoji picker
-        position: relative;
-    }
+  .emojionearea {
+    z-index: 10;
+    position: relative;
+  }
 
-    .progress {
-        position: absolute;
-        top: -.25rem;
-        left: 0;
-        right: 0;
-        height: .25rem;
-        box-shadow: none;
-    }
-
-    .form-group {
-        margin: 0;
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-    }
-
-    .form-control {
-        border: 0;
-        //border-radius: 0;
-        background-color: $gray-100;
-        box-shadow: none;
-        margin: 0 .75rem;
-        padding: .5rem .75rem;
-
-        &:disabled {
-            background-color: $input-bg;
-        }
-    }
-
-    .emojionearea {
-        z-index: 10;
-        position: relative;
-    }
-
-    .emojionearea-editor {
-        margin: 0;
-        // make room for emoji button (unless mobile)
-        padding: .5rem 2.75rem .5rem .75rem;
-
-        html.mobile & {
-            padding-right: .75rem;
-        }
-
-        word-break: break-word;
-    }
-
-
+  .emojionearea.form-control {
     .emojionearea-button {
-        bottom: .5rem;
-        right: .75rem;
+      visibility:hidden;
     }
+  }
+
+  .emojionearea-editor {
+    margin: 0;
+    // make room for emoji button (unless mobile)
+    padding: .5rem 2.75rem .5rem .75rem;
+
+    html.mobile & {
+      padding-right: .75rem;
+    }
+
+    word-break: break-word;
+  }
+
+
+  .emojionearea-button {
+    bottom: .5rem;
+    right: .75rem;
+    color: #0c4769;
+    opacity: 1;
+  }
+
+  .emojionearea .emojionearea-picker.emojionearea-picker-position-top {
+    margin-top: -286px;
+    right: -4.33rem;
+    transform: scale(.915);
+  }
 
     .btn-icon {
-        margin-bottom: .25rem;
+      margin-bottom: .25rem;
     }
     // file upload button
     .btn-file > input {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0;
-        opacity: 0;
-        -ms-filter: 'alpha(opacity=0)';
-        font-size: 8.125rem; // 130px;
-        direction: ltr;
-        cursor: pointer;
-        overflow: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0;
+      opacity: 0;
+      -ms-filter: 'alpha(opacity=0)';
+      font-size: 8.125rem; // 130px;
+      direction: ltr;
+      cursor: pointer;
+      overflow: hidden;
     }
-}
+  }
 
 
-.search-form {
+  .search-form {
 
     .form-group {
-        margin: $navbar-padding-y $navbar-padding-x;
-        position: relative;
+      margin: $navbar-padding-y $navbar-padding-x;
+      position: relative;
     }
 
     .form-control {
-        padding-right: 2rem;
-        box-shadow: none;
-        border-color: $border-color;
+      padding: 0 2rem 0 2.5rem;
+      box-shadow: none;
+      border-color: $border-color;
 
-        &::-ms-clear {
-            display: none;
-        }
+      &::-ms-clear {
+        display: none;
+      }
     }
 
     .btn-icon {
-        color: $text-muted;
-        position: absolute;
-        top: -1px;
-        right: 0;
+      color: $text-muted;
+      position: absolute;
+      top: -1px;
+      right: 0;
 
-        &:active {
-            box-shadow: none;
-        }
+      &:active {
+        box-shadow: none;
+      }
+    }
+
+    .btn-search {
+      left: 0.25rem !important;
+      transform: scale(0.8);
     }
 
     .btn-reset {
-        display: none;
+      display: none;
     }
 
     &.searching {
-        .btn-search {
-            display: none;
+      .btn-reset {
+        display: inline-flex;
+
+        .spinner {
+          display: inline-flex;
         }
 
-        .btn-reset {
-            display: inline-flex;
-
-            .spinner {
-                display: inline-flex;
-            }
-
-            .i-close {
-                display: none;
-            }
+        .i-close {
+          display: none;
         }
+      }
     }
 
     &.reset {
-        .btn-search {
-            display: none;
+      .btn-reset {
+        display: inline-flex;
+
+        .spinner {
+          display: none;
         }
 
-        .btn-reset {
-            display: inline-flex;
-
-            .spinner {
-                display: none;
-            }
-
-            .i-close {
-                display: inline-flex;
-            }
+        .i-close {
+          display: inline-flex;
         }
+      }
     }
-}
+  }
 
 
-.edit-form {
+  .edit-form {
 
 
     .name-label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: .875rem 0 1rem 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .875rem 0 1rem 0;
     }
 
     .form-group {
-        display: none;
-        margin-bottom: 0;
-        padding: .5rem 0 .625rem 0;
+      display: none;
+      margin-bottom: 0;
+      padding: .5rem 0 .625rem 0;
     }
 
     &.edit {
-        .form-group {
-            display: block;
-        }
+      .form-group {
+        display: block;
+      }
 
-        .name-label {
-            display: none;
-        }
+      .name-label {
+        display: none;
+      }
     }
-}
-// modals
-.modal-body {
+  }
+  // modals
+  .modal-body {
 
     .search-form {
 
-        .form-group {
-            margin: 0 0 1rem 0;
-        }
+      .form-group {
+        margin: 0 0 1rem 0;
+      }
     }
 
     .search-form + form[method=post] {
-        margin: 0 -1rem;
+      margin: 0 -1rem;
     }
-}
-// user profile modal
-.display-group {
+  }
+  // user profile modal
+  .display-group {
     margin-bottom: .75rem;
 
     label {
-        margin: 0;
+      margin: 0;
     }
-}
-// images
-.image-grid {
+  }
+  // images
+  .image-grid {
     background-color: inherit;
-}
-
-// preview navbar (instead of including _navbar.scss to avoid lots of unused rules)
-.navbar-preview {
+  }
+  // preview navbar (instead of including _navbar.scss to avoid lots of unused rules)
+  .navbar-preview {
     .navbar-icons {
-        display: flex;
-        flex: 1 0 2rem;
+      display: flex;
+      flex: 1 0 2rem;
 
-        &:not(:first-child):last-child {
-            justify-content: flex-end;
-        }
+      &:not(:first-child):last-child {
+        justify-content: flex-end;
+      }
     }
 
     .navbar-middle {
-        display: flex;
-        flex: 0 1 auto;
-        align-items: center;
-        justify-content: center;
-        margin: 0 .5rem;
-        min-width: 0;
+      display: flex;
+      flex: 0 1 auto;
+      align-items: center;
+      justify-content: center;
+      margin: 0 .5rem;
+      min-width: 0;
 
-        .navbar-text {
-            padding: 0;
-            display: inline-block;
-            @include text-truncate();
-            color: inherit !important;
-        }
+      .navbar-text {
+        padding: 0;
+        display: inline-block;
+        @include text-truncate();
+        color: inherit !important;
+      }
     }
 
     .navbar-title {
-        line-height: 2rem;
-        margin-top: 0;
-        margin-bottom: 0;
+      line-height: 2rem;
+      margin-top: 0;
+      margin-bottom: 0;
     }
-}
-// emoji and mentions autocomplete
-.textcomplete-dropdown {
+  }
+  // emoji and mentions autocomplete
+  .textcomplete-dropdown {
     max-width: 20rem;
 
     @include media-breakpoint-down(xs) {
-        left: 1rem !important;
-        max-width: calc(100vw - 2rem);
+      left: 1rem !important;
+      max-width: calc(100vw - 2rem);
     }
-}
+  }
 
-.textcomplete-item {
+  .textcomplete-item {
     @extend .dropdown-item;
 
     a {
-        display: flex;
-        align-items: center;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+
+      .emojioneemoji {
+        margin-right: .325rem;
+      }
+
+      > span {
         overflow: hidden;
-
-        .emojioneemoji {
-            margin-right: .325rem;
-        }
-
-        > span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1 1 0%;
-        }
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1 1 0%;
+      }
     }
-}
-
-// update avatar
-.custom-image {
+  }
+  // update avatar
+  .custom-image {
     display: inline-block;
     width: 8rem; // 128px;
     height: 8rem; // 128px;
@@ -1258,67 +1403,67 @@ body.dual {
     background-image: linear-gradient(45deg, $gray-100 25%, transparent 25%, transparent 75%, $gray-100 75%, $gray-100 100%), linear-gradient(45deg, $gray-100 25%, $white 25%, $white 75%, $gray-100 75%, $gray-100 100%);
 
     input[type=file] {
-        min-width: unset;
-        max-width: unset;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        position: relative;
+      min-width: unset;
+      max-width: unset;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      position: relative;
     }
 
     img, .custom-icon {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        border: .0625rem solid $input-border-color;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: .0625rem solid $input-border-color;
     }
 
     .btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
     }
 
     .progress {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
     }
 
     .custom-file-label {
+      display: none;
+      background-color: rgba(0,0,0,0.5);
+      color: $white;
+      position: absolute;
+      bottom: .5rem;
+      right: .5rem;
+      top: auto;
+      left: auto;
+      margin: 0;
+      border: none;
+      height: auto;
+
+      @include button-size($input-btn-padding-y-sm, $input-btn-padding-x-sm, $font-size-sm, $input-btn-line-height-sm, $btn-border-radius-sm);
+
+      &::after {
         display: none;
-        background-color: rgba(0,0,0,0.5);
-        color: $white;
-        position: absolute;
-        bottom: .5rem;
-        right: .5rem;
-        top: auto;
-        left: auto;
-        margin: 0;
-        border: none;
-        height: auto;
-
-        @include button-size($input-btn-padding-y-sm, $input-btn-padding-x-sm, $font-size-sm, $input-btn-line-height-sm, $btn-border-radius-sm);
-
-        &::after {
-            display: none;
-        }
+      }
     }
 
     .mobile & .custom-file-label {
-        display: block;
+      display: block;
     }
 
     &:hover {
-        img {
-            background-color: rgba(0,0,0,0.1);
-        }
+      img {
+        background-color: rgba(0,0,0,0.1);
+      }
 
-        .custom-file-label {
-            display: block;
-        }
+      .custom-file-label {
+        display: block;
+      }
     }
-}
+  }

@@ -4,13 +4,42 @@
     Messenger messenger = ViewBag.Messenger;
     var lastMessage = Model.LastMessage;
     var href = messenger.IsMessenger ? Url.Action<MessengerController>(c => c.Messenger(Model.Id, null)): Url.Action<MessengerController>(c => c.Conversation(Model.Id));
+    var group = Model.GetTitle().Split(new string[] { ", " }, StringSplitOptions.None);
+    var others = Model.Members.Where(x => x.Id != WeavyContext.Current.User.Id && x.IsInRole("patient"));
 }
 
-<a href="@href" data-action="load" data-id="@Model.Id" class="list-group-item list-group-item-action conversation@(Model.IsRoom ? " room" : "")@(Model.IsPinned ? " pinned" : "")@(Model.IsStarred() ? " starred" : "")@(Model.IsRead ? "" :" unread")@(messenger.Conversation?.Id == Model.Id ? " active" : "")">
+<style>
+    .patient {
+        display: none;
+    }
+</style>
+
+<a href="@href" data-action="load" data-id="@Model.Id" class="list-group-item list-group-item-action conversation@(Model.IsRoom ? " room" : "")@(Model.IsPinned ? " pinned" : "")@(Model.IsStarred() ? " starred" : "")@(Model.IsRead ? "" :" unread")@(messenger.Conversation?.Id == Model.Id ? " active" : "")@(others.Any(u => u.IsInRole("patient")) ? " patient" : " practice")">
     <div class="media">
-        <div class="img-48 mr-3">
-            @Model.AvatarImg(size:48, presence: true)
+        <div class="img-48">
+            @if (group.Length < 5)
+            {
+                foreach (var person in group)
+                {
+                    <div class="group-icon @(group.Length > 1 ? "g2" :"g1")">
+                        @*@Model.AvatarImg(size:48, presence: true)*@
+                        @person.Split()[0][0]@person.Split()[1][0]
+                    </div>
+                }
+            }
+            else
+            {
+                for (var i = 0; i < 4; i++)
+                {
+                    <div class="group-icon g2">
+                        @group[i].Split()[0][0]@group[i].Split()[1][0]
+                    </div>
+                }
+            }
+
+
         </div>
+        
         <div class="media-body">
             @Html.TimeWhen(lastMessage?.CreatedAt)
             <div class="media-title">@Model.GetTitle()</div>
@@ -44,7 +73,7 @@
         <div class="media-actions">
             @Html.StarToggle(Model)
             <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" data-offset="-10" aria-haspopup="true" aria-expanded="false">
-                @Svg.Icon("pin")
+                <svg class="i i-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    <path fill="#0c4769" d="M 14.707031 2.2929688 L 13.292969 3.7070312 L 14.388672 4.8027344 L 8.1894531 9.7753906 L 6.7070312 8.2929688 L 5.2929688 9.7070312 L 9.09375 13.507812 L 3 19.599609 L 3 21 L 4.4003906 21 L 10.492188 14.90625 L 14.292969 18.707031 L 15.707031 17.292969 L 14.310547 15.896484 L 19.214844 9.6289062 L 20.292969 10.707031 L 21.707031 9.2929688 L 14.707031 2.2929688 z M 15.798828 6.2363281 L 17.779297 8.2167969 L 12.976562 14.359375 L 9.7246094 11.107422 L 15.798828 6.2363281 z"></path></svg>
                 @Svg.Icon("dots-vertical")
             </button>
             @{ Html.RenderPartial("_Menu", Model); }

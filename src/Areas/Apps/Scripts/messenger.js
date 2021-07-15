@@ -426,6 +426,30 @@ wvy.messenger = (function ($) {
         }
     });
 
+    $(document).on("click", ".patient-btn", function (e) {
+      e.preventDefault();
+      $(".practice-btn").removeClass('active');
+      $('.patient-btn').addClass('active');
+
+    });
+    $(document).on("click", ".practice-btn", function (e) {
+      e.preventDefault();
+      $(".patient-btn").removeClass('active');
+      $('.practice-btn').addClass('active');
+
+    });
+
+  $(document).on("click", ".emojionearea-button", e => {
+    e.preventDefault();
+    $(".emojionearea-button").addClass('active');
+    $(".emojionearea-picker").removeClass('hidden');
+  })
+  $(document).on("click", ".emojionearea-button.active", e => {
+    e.preventDefault();
+    $(".emojionearea-button").removeClass('active');
+    $(".emojionearea-picker").addClass('hidden');
+  })
+
     // sign out from meeting providers
     $(document).on("click", "[data-meeting-sign-out]", function () {
         var provider = $(this).data("meeting-sign-out");

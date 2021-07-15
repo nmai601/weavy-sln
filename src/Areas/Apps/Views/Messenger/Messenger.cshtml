@@ -2,12 +2,16 @@
 @{
     Layout = null;
     BodyAttributes.Add("class", "dual");
+    var group = Model.Conversation.GetTitle().Split(new string[] { ", " }, StringSplitOptions.None);
+
     if (Model.ConversationId == null) {
         BodyAttributes.Add("class", "one");
     } else {
         BodyAttributes.Add("class", "two");
+
     }
-    
+
+
 }
 <!DOCTYPE html>
 <html @RenderHtmlAttributes()>
@@ -29,28 +33,73 @@
     <script>@Html.ContextInfo()@Html.UserSettings()</script>
     <div class="pane" id="sidebar">
         <header class="pane-header">
-            <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#new-message-modal" title="@T["New message"]">@Svg.Icon("message-plus")</button>
-            <div class="pane-title text-truncate"><a href="@(Url.Action<MessengerController>(c => c.Index(null)))">@(IsEmbedded ? T["Conversations"].ToString() : T["Messenger"].ToString())</a></div>
-            <button type="button" class="btn btn-icon dropdown-toggle top-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Svg.Icon("dots-vertical")</button>
+            <div style="display:flex; flex-direction:row;">
+                <button type="button" class="btn btn-primary btn-icon" style="transform:scale(1.2)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="#fba376" d="M 2 4 L 2 20 L 6 20 L 6 25.080078 L 12.351562 20 L 22 20 L 22 19 L 22 4 L 2 4 z M 4 6 L 20 6 L 20 18 L 11.648438 18 L 8 20.917969 L 8 18 L 4 18 L 4 6 z M 24 8 L 24 10 L 28 10 L 28 22 L 24 22 L 24 24.919922 L 20.351562 22 L 12.847656 22 L 10.347656 24 L 19.648438 24 L 26 29.080078 L 26 24 L 30 24 L 30 8 L 24 8 z M 6 9 L 6 11 L 18 11 L 18 9 L 6 9 z M 6 13 L 6 15 L 13 15 L 13 13 L 6 13 z"></path></svg></button>
+                <div class="pane-title text-truncate"><a href="@(Url.Action<MessengerController>(c => c.Index(null)))">@(IsEmbedded ? T["Messaging"].ToString() : T["Messaging"].ToString())</a></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#new-message-modal" title="@T["New message"]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path style="transform: scale(0.95);" fill="#0c4769" d="M 18.414062 2 C 18.158062 2 17.902031 2.0979687 17.707031 2.2929688 L 15.707031 4.2929688 L 14.292969 5.7070312 L 3 17 L 3 21 L 7 21 L 21.707031 6.2929688 C 22.098031 5.9019687 22.098031 5.2689063 21.707031 4.8789062 L 19.121094 2.2929688 C 18.926094 2.0979687 18.670063 2 18.414062 2 z M 18.414062 4.4140625 L 19.585938 5.5859375 L 18.292969 6.8789062 L 17.121094 5.7070312 L 18.414062 4.4140625 z M 15.707031 7.1210938 L 16.878906 8.2929688 L 6.171875 19 L 5 19 L 5 17.828125 L 15.707031 7.1210938 z"></path></svg></button>
+                <button type="button" class="btn btn-icon dropdown-toggle top-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Svg.Icon("dots-vertical")</button>
+            </div>
             <div class="dropdown-menu dropdown-menu-right">
                 <button type="button" class="dropdown-item" data-toggle="modal" data-target="#settings-modal">@T["Settings"]</button>
-                @if (WeavyContext.Browser.Mobile) {
+                @if (WeavyContext.Browser.Mobile)
+                {
                     <a class="dropdown-item" href="~/sign-out?path=/@Weavy.Areas.Apps.Controllers.MessengerController.MESSENGER_PREFIX" id="signout">@T["Sign out"]</a>
                 }
             </div>
         </header>
-        <div class="pane-body scroll-y">
-            <form class="search-form" action="@(Url.Action<MessengerController>(c => c.Conversations(null)))" method="get" role="search" data-target="#conversations">
-                <div class="form-group">
-                    <input type="text" name="q" class="form-control form-control-sm" placeholder="@T["Search..."]" autocomplete="off" />
-                    <button type="button" class="btn btn-icon btn-search">@Svg.Icon("magnify")</button>
-                    <button type="button" class="btn btn-icon btn-reset">@Svg.Spinner(size: 18, spin: true)@Svg.Icon("close")</button>
-                </div>
-            </form>
-            <nav class="list-group" id="conversations">
-                @{ Html.RenderPartial("_Conversations", Model); }
-            </nav>
-        </div>
+        
+        @if (WeavyContext.User.IsInRole("careteam"))
+        {
+            <div class="messenger-btns">
+                <button class="btn practice-btn active" id="practice">Practice</button>
+                <button class="btn patient-btn" id="patient">Patient</button>
+            </div>
+            <script>
+
+                $("#practice").click(function () {
+                    $(".patient").hide();
+                    $(".practice").show();
+                })
+
+                $("#patient").click(function () {
+                    $(".practice").hide();
+                    $(".patient").show();
+                })
+
+
+            </script>
+
+            <div class="pane-body scroll-y">
+                <form class="search-form" action="@(Url.Action<MessengerController>(c => c.Conversations(null)))" method="get" role="search" data-target="#conversations">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-icon btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">    <path fill="#0c4769" d="M 56.599609 21.599609 C 34.099609 21.599609 15.800781 40.100781 15.800781 62.800781 C 15.800781 85.600781 34.099609 104 56.599609 104 C 66.899609 104 76.3 100.09922 83.5 93.699219 L 85.800781 96 L 83.699219 98.199219 C 82.499219 99.399219 82.499219 101.3 83.699219 102.5 L 101.69922 120.69922 C 102.29922 121.29922 103.00078 121.59961 103.80078 121.59961 C 104.60078 121.59961 105.40039 121.29922 105.90039 120.69922 L 113.90039 112.59961 C 115.00039 111.39961 115.00078 109.50039 113.80078 108.40039 L 95.800781 90.199219 C 95.200781 89.599219 94.499219 89.300781 93.699219 89.300781 C 92.899219 89.300781 92.099609 89.599219 91.599609 90.199219 L 89.5 92.400391 L 87.199219 90 C 93.499219 82.7 97.400391 73.200781 97.400391 62.800781 C 97.400391 40.100781 79.099609 21.599609 56.599609 21.599609 z M 56.599609 27.699219 C 75.799609 27.699219 91.400391 43.500391 91.400391 62.900391 C 91.400391 82.300391 75.799609 98 56.599609 98 C 37.399609 98 21.800781 82.300391 21.800781 62.900391 C 21.800781 43.500391 37.399609 27.699219 56.599609 27.699219 z M 56.699219 40.199219 C 47.199219 40.199219 38.7 46.300781 35.5 55.300781 C 35 56.600781 35.699609 58.199609 37.099609 58.599609 C 37.399609 58.699609 37.7 58.800781 38 58.800781 C 39.1 58.800781 40.1 58.1 40.5 57 C 42.9 50.1 49.499219 45.400391 56.699219 45.400391 C 58.099219 45.400391 59.300781 44.200781 59.300781 42.800781 C 59.300781 41.400781 58.099219 40.199219 56.699219 40.199219 z M 37.699219 64.900391 C 36.299219 64.900391 35.099609 66 35.099609 67.5 L 35.099609 67.900391 C 35.199609 69.300391 36.300781 70.5 37.800781 70.5 C 39.200781 70.5 40.400391 69.300391 40.400391 67.900391 L 40.400391 67.599609 C 40.400391 66.099609 39.300781 64.900391 37.800781 64.900391 L 37.699219 64.900391 z M 93.800781 96.599609 L 107.59961 110.59961 L 103.80078 114.40039 L 90 100.40039 L 93.800781 96.599609 z"></path></svg></button>
+                        <input type="text" name="q" class="form-control form-control-sm" placeholder="@T["Search for a conversation..."]" autocomplete="off" />
+                        <button type="button" class="btn btn-icon btn-reset">@Svg.Spinner(size: 18, spin: true)@Svg.Icon("close")</button>
+                    </div>
+                </form>
+                <nav class="list-group" id="conversations">
+                    @{ Html.RenderPartial("_Conversations", Model); }
+                </nav>
+            </div>
+        }
+        else
+        {
+            <div class="pane-body scroll-y">
+                <form class="search-form" action="@(Url.Action<MessengerController>(c => c.Conversations(null)))" method="get" role="search" data-target="#conversations">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-icon btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">    <path fill="#0c4769" d="M 56.599609 21.599609 C 34.099609 21.599609 15.800781 40.100781 15.800781 62.800781 C 15.800781 85.600781 34.099609 104 56.599609 104 C 66.899609 104 76.3 100.09922 83.5 93.699219 L 85.800781 96 L 83.699219 98.199219 C 82.499219 99.399219 82.499219 101.3 83.699219 102.5 L 101.69922 120.69922 C 102.29922 121.29922 103.00078 121.59961 103.80078 121.59961 C 104.60078 121.59961 105.40039 121.29922 105.90039 120.69922 L 113.90039 112.59961 C 115.00039 111.39961 115.00078 109.50039 113.80078 108.40039 L 95.800781 90.199219 C 95.200781 89.599219 94.499219 89.300781 93.699219 89.300781 C 92.899219 89.300781 92.099609 89.599219 91.599609 90.199219 L 89.5 92.400391 L 87.199219 90 C 93.499219 82.7 97.400391 73.200781 97.400391 62.800781 C 97.400391 40.100781 79.099609 21.599609 56.599609 21.599609 z M 56.599609 27.699219 C 75.799609 27.699219 91.400391 43.500391 91.400391 62.900391 C 91.400391 82.300391 75.799609 98 56.599609 98 C 37.399609 98 21.800781 82.300391 21.800781 62.900391 C 21.800781 43.500391 37.399609 27.699219 56.599609 27.699219 z M 56.699219 40.199219 C 47.199219 40.199219 38.7 46.300781 35.5 55.300781 C 35 56.600781 35.699609 58.199609 37.099609 58.599609 C 37.399609 58.699609 37.7 58.800781 38 58.800781 C 39.1 58.800781 40.1 58.1 40.5 57 C 42.9 50.1 49.499219 45.400391 56.699219 45.400391 C 58.099219 45.400391 59.300781 44.200781 59.300781 42.800781 C 59.300781 41.400781 58.099219 40.199219 56.699219 40.199219 z M 37.699219 64.900391 C 36.299219 64.900391 35.099609 66 35.099609 67.5 L 35.099609 67.900391 C 35.199609 69.300391 36.300781 70.5 37.800781 70.5 C 39.200781 70.5 40.400391 69.300391 40.400391 67.900391 L 40.400391 67.599609 C 40.400391 66.099609 39.300781 64.900391 37.800781 64.900391 L 37.699219 64.900391 z M 93.800781 96.599609 L 107.59961 110.59961 L 103.80078 114.40039 L 90 100.40039 L 93.800781 96.599609 z"></path></svg></button>
+                        <input type="text" name="q" class="form-control form-control-sm" placeholder="@T["Search for a conversation..."]" autocomplete="off" />
+                        <button type="button" class="btn btn-icon btn-reset">@Svg.Spinner(size: 18, spin: true)@Svg.Icon("close")</button>
+                    </div>
+                </form>
+                <nav class="list-group" id="conversations">
+                    @{ Html.RenderPartial("_Conversations", Model); }
+                </nav>
+            </div>
+
+        }
     </div>
     <div class="alerts">@Html.AlertMessages()</div>
     @if (Model.Conversation == null) {
@@ -67,18 +116,50 @@
         <main id="main" class="pane conversation @(Model.Conversation.IsRoom ? " room" : "")@(Model.Conversation.IsPinned ? " pinned" : "")@(Model.Conversation.IsStarred() ? " starred" : "")@(Model.Conversation.IsRead ? "" : " unread")" data-id="@Model.Conversation.Id">
             <header class="pane-header">
                 <div class="pane-actions">
-                    <a href="@(Url.Action<MessengerController>(c => c.Index(null)))" class="btn btn-primary btn-icon btn-back">@Svg.Icon("arrow-left")</a>
+                    @*<a href="@(Url.Action<MessengerController>(c => c.Index(null)))" class="btn btn-primary btn-icon btn-back">@Svg.Icon("arrow-left")</a>*@
                     @if (WeavyContext.Browser.Mobile) {
                         <span class="badge badge-danger text-truncate">@(Model.Unread > 0 ? Model.Unread.ToString() : "")</span>
                     }
-                    <a href="@(Url.Action<MessengerController>(c => c.Messenger(Model.Conversation.Id, null)))" class="btn btn-icon btn-avatar">@Model.Conversation.AvatarImg(24)</a>
+                    <a href="@(Url.Action<MessengerController>(c => c.Messenger(Model.Conversation.Id, null)))" class="btn btn-icon btn-avatar"></a>
+                    @*@Model.Conversation.AvatarImg(24)*@
+                        <div style="display: flex; align-items: center; min-width: 250px;">
+                            <div class="img-48">
+                                @if (group.Length < 5)
+                                {
+                                    foreach (var person in group)
+                                    {
+                                        <div class="group-icon @(group.Length > 1 ? "g2" :"g1")">
+                                            @*@Model.AvatarImg(size:48, presence: true)*@
+                                            @person.Split()[0][0]@person.Split()[1][0]
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    for (var i = 0; i < 4; i++)
+                                    {
+                                        <div class="group-icon g2">
+                                            @group[i].Split()[0][0]@group[i].Split()[1][0]
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="media-title">
+                                @Model.Conversation.GetTitle()
+                            </div>
+
+                        </div>
                 </div>
                 <div class="pane-title">
-                    <span class="typing-hide d-flex align-items-center">@Html.StarToggle(Model.Conversation)<a href="@(Url.Action<MessengerController>(c => c.Messenger(Model.Conversation.Id, null)))">@Model.Conversation.GetTitle()</a></span>
+                    @*<span class="typing-hide d-flex align-items-right">@Html.StarToggle(Model.Conversation)<a href="@(Url.Action<MessengerController>(c => c.Messenger(Model.Conversation.Id, null)))">
+
+                    </a></span>*@
                     <span class="typing-show"></span>
                 </div>
                 <div class="pane-actions">
-                    <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#info-modal" title="@T["Details"]">@Svg.Icon("information-outline")</button>
+                    @*<button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#info-modal" title="@T["Details"]">@Svg.Icon("information-outline")</button>*@
+                    <button type="button" class="btn btn-primary btn-icon" title="@T["Close"]">@Svg.Icon("close")</button>
                 </div>
             </header>
             <div class="pane-body">

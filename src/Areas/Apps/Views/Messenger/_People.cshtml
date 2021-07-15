@@ -9,7 +9,14 @@
 
     @foreach (var user in selected) {
         <tr>
-            <td class="table-icon">@user.AvatarImg(32, presence: true)</td>
+            <td class="table-icon">
+                @*@user.AvatarImg(32, presence: true)*@
+                <div class="img-32">
+                    <div class="group-icon g1">
+                        @user.GetTitle().Split()[0][0]@user.GetTitle().Split()[1][0]
+                    </div>
+                </div>
+            </td>
             <td>
                 @if (user.Username != user.GetTitle()) {
                     @user.GetTitle()
@@ -33,7 +40,14 @@
         }
 
         <tr>
-            <td class="table-icon">@user.AvatarImg(32, presence: true)</td>
+            <td class="table-icon">
+                @*@user.AvatarImg(32, presence: true)*@
+                <div class="img-32">
+                    <div class="group-icon g1">
+                        @user.GetTitle().Split()[0][0]@user.GetTitle().Split()[1][0]
+                    </div>
+                </div>
+            </td>
             <td>
                 @if (user.Username != user.GetTitle()) {
                     @user.GetTitle()

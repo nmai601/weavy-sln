@@ -3,6 +3,7 @@
     Layout = null;
     BodyAttributes.Add("class", "single");
     BodyAttributes.Add("class", "two");
+
 }
 <!DOCTYPE html>
 <html @RenderHtmlAttributes()>
@@ -24,8 +25,10 @@
             <div class="pane-actions">
                 <a href="@(Url.Action<MessengerController>(c => c.Conversation(Model.Conversation.Id)))" class="btn btn-icon btn-avatar">@Model.Conversation.AvatarImg(24)</a>
             </div>
+            @Model.Conversation.GetTitle()
+
             <div class="pane-title">
-                <span class="typing-hide d-flex align-items-center">@Html.StarToggle(Model.Conversation)<a href="@(Url.Action<MessengerController>(c => c.Conversation(Model.Conversation.Id)))">@Model.Conversation.GetTitle()</a></span>
+                <span class="typing-hide d-flex align-items-center">@Html.StarToggle(Model.Conversation)<a href="@(Url.Action<MessengerController>(c => c.Conversation(Model.Conversation.Id)))">@Model.Conversation.GetTitle()hi</a></span>
                 <span class="typing-show"></span>
             </div>
             <div class="pane-actions">

@@ -8,6 +8,10 @@ $picker-height: 276px;
 $filters-height: 40px;
 $search-height: 40px;
 
+.emojionearea .emojionearea-editor {
+  color: #0c4769;
+}
+
 .#{$css-prefix} {
 
     &, &.form-control {
